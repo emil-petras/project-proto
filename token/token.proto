@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "./token";
+
+import "google/protobuf/timestamp.proto";
+
+service Service {
+    rpc create (CreateToken) returns (Token) {}
+    rpc read (ReadToken) returns (Token) {}
+}
+
+message ReadToken {
+    string value = 1;
+}
+
+message CreateToken {
+    string value = 1;
+    uint32 userID = 2;
+    google.protobuf.Timestamp validUntil = 3;
+}
+
+message Token {
+    uint64 id = 1;
+    string value = 2;
+    uint64 userID = 3;
+    google.protobuf.Timestamp validUntil = 4;
+    google.protobuf.Timestamp created = 5;
+}
