@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "./user";
+
+import "google/protobuf/timestamp.proto";
+
+service Service {
+    rpc create (CreateUser) returns (User) {}
+    rpc read (ReadUser) returns (User) {}
+    rpc update (UpdateUser) returns (User) {}
+}
+
+message ReadUser {
+    string username = 1;
+}
+
+message CreateUser {
+    string username = 1;
+    string password = 2;
+}
+
+message UpdateUser {
+    uint64 balance = 1;
+    google.protobuf.Timestamp updated = 2;
+}
+
+message User {
+    uint64 id = 1;
+    string username = 2;
+    string password = 3;
+    uint64 balance = 4;
+    google.protobuf.Timestamp updated = 5;
+    google.protobuf.Timestamp created = 6;
+}
