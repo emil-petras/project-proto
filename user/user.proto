@@ -4,7 +4,7 @@ option go_package = "./user";
 
 import "google/protobuf/timestamp.proto";
 
-service Service {
+service UserService {
     rpc create (CreateUser) returns (User) {}
     rpc read (ReadUser) returns (User) {}
     rpc update (UpdateUser) returns (User) {}
