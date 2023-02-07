@@ -18,158 +18,158 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// ServiceClient is the client API for Service service.
+// UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ServiceClient interface {
+type UserServiceClient interface {
 	Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*User, error)
 	Read(ctx context.Context, in *ReadUser, opts ...grpc.CallOption) (*User, error)
 	Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*User, error)
 }
 
-type serviceClient struct {
+type userServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewServiceClient(cc grpc.ClientConnInterface) ServiceClient {
-	return &serviceClient{cc}
+func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
+	return &userServiceClient{cc}
 }
 
-func (c *serviceClient) Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*User, error) {
+func (c *userServiceClient) Create(ctx context.Context, in *CreateUser, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/Service/create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/UserService/create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serviceClient) Read(ctx context.Context, in *ReadUser, opts ...grpc.CallOption) (*User, error) {
+func (c *userServiceClient) Read(ctx context.Context, in *ReadUser, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/Service/read", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/UserService/read", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serviceClient) Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*User, error) {
+func (c *userServiceClient) Update(ctx context.Context, in *UpdateUser, opts ...grpc.CallOption) (*User, error) {
 	out := new(User)
-	err := c.cc.Invoke(ctx, "/Service/update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/UserService/update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ServiceServer is the server API for Service service.
-// All implementations must embed UnimplementedServiceServer
+// UserServiceServer is the server API for UserService service.
+// All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
-type ServiceServer interface {
+type UserServiceServer interface {
 	Create(context.Context, *CreateUser) (*User, error)
 	Read(context.Context, *ReadUser) (*User, error)
 	Update(context.Context, *UpdateUser) (*User, error)
-	mustEmbedUnimplementedServiceServer()
+	mustEmbedUnimplementedUserServiceServer()
 }
 
-// UnimplementedServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedServiceServer struct {
+// UnimplementedUserServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedServiceServer) Create(context.Context, *CreateUser) (*User, error) {
+func (UnimplementedUserServiceServer) Create(context.Context, *CreateUser) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedServiceServer) Read(context.Context, *ReadUser) (*User, error) {
+func (UnimplementedUserServiceServer) Read(context.Context, *ReadUser) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Read not implemented")
 }
-func (UnimplementedServiceServer) Update(context.Context, *UpdateUser) (*User, error) {
+func (UnimplementedUserServiceServer) Update(context.Context, *UpdateUser) (*User, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
+func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
-// UnsafeServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ServiceServer will
+// UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to UserServiceServer will
 // result in compilation errors.
-type UnsafeServiceServer interface {
-	mustEmbedUnimplementedServiceServer()
+type UnsafeUserServiceServer interface {
+	mustEmbedUnimplementedUserServiceServer()
 }
 
-func RegisterServiceServer(s grpc.ServiceRegistrar, srv ServiceServer) {
-	s.RegisterService(&Service_ServiceDesc, srv)
+func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
+	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _Service_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateUser)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceServer).Create(ctx, in)
+		return srv.(UserServiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Service/create",
+		FullMethod: "/UserService/create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceServer).Create(ctx, req.(*CreateUser))
+		return srv.(UserServiceServer).Create(ctx, req.(*CreateUser))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Service_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReadUser)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceServer).Read(ctx, in)
+		return srv.(UserServiceServer).Read(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Service/read",
+		FullMethod: "/UserService/read",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceServer).Read(ctx, req.(*ReadUser))
+		return srv.(UserServiceServer).Read(ctx, req.(*ReadUser))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Service_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateUser)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceServer).Update(ctx, in)
+		return srv.(UserServiceServer).Update(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Service/update",
+		FullMethod: "/UserService/update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceServer).Update(ctx, req.(*UpdateUser))
+		return srv.(UserServiceServer).Update(ctx, req.(*UpdateUser))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Service_ServiceDesc is the grpc.ServiceDesc for Service service.
+// UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Service_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Service",
-	HandlerType: (*ServiceServer)(nil),
+var UserService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "UserService",
+	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "create",
-			Handler:    _Service_Create_Handler,
+			Handler:    _UserService_Create_Handler,
 		},
 		{
 			MethodName: "read",
-			Handler:    _Service_Read_Handler,
+			Handler:    _UserService_Read_Handler,
 		},
 		{
 			MethodName: "update",
-			Handler:    _Service_Update_Handler,
+			Handler:    _UserService_Update_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

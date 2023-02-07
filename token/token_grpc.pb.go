@@ -18,122 +18,122 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// ServiceClient is the client API for Service service.
+// TokenServiceClient is the client API for TokenService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ServiceClient interface {
+type TokenServiceClient interface {
 	Create(ctx context.Context, in *CreateToken, opts ...grpc.CallOption) (*Token, error)
 	Read(ctx context.Context, in *ReadToken, opts ...grpc.CallOption) (*Token, error)
 }
 
-type serviceClient struct {
+type tokenServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewServiceClient(cc grpc.ClientConnInterface) ServiceClient {
-	return &serviceClient{cc}
+func NewTokenServiceClient(cc grpc.ClientConnInterface) TokenServiceClient {
+	return &tokenServiceClient{cc}
 }
 
-func (c *serviceClient) Create(ctx context.Context, in *CreateToken, opts ...grpc.CallOption) (*Token, error) {
+func (c *tokenServiceClient) Create(ctx context.Context, in *CreateToken, opts ...grpc.CallOption) (*Token, error) {
 	out := new(Token)
-	err := c.cc.Invoke(ctx, "/Service/create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/TokenService/create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *serviceClient) Read(ctx context.Context, in *ReadToken, opts ...grpc.CallOption) (*Token, error) {
+func (c *tokenServiceClient) Read(ctx context.Context, in *ReadToken, opts ...grpc.CallOption) (*Token, error) {
 	out := new(Token)
-	err := c.cc.Invoke(ctx, "/Service/read", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/TokenService/read", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ServiceServer is the server API for Service service.
-// All implementations must embed UnimplementedServiceServer
+// TokenServiceServer is the server API for TokenService service.
+// All implementations must embed UnimplementedTokenServiceServer
 // for forward compatibility
-type ServiceServer interface {
+type TokenServiceServer interface {
 	Create(context.Context, *CreateToken) (*Token, error)
 	Read(context.Context, *ReadToken) (*Token, error)
-	mustEmbedUnimplementedServiceServer()
+	mustEmbedUnimplementedTokenServiceServer()
 }
 
-// UnimplementedServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedServiceServer struct {
+// UnimplementedTokenServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedTokenServiceServer struct {
 }
 
-func (UnimplementedServiceServer) Create(context.Context, *CreateToken) (*Token, error) {
+func (UnimplementedTokenServiceServer) Create(context.Context, *CreateToken) (*Token, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedServiceServer) Read(context.Context, *ReadToken) (*Token, error) {
+func (UnimplementedTokenServiceServer) Read(context.Context, *ReadToken) (*Token, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Read not implemented")
 }
-func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
+func (UnimplementedTokenServiceServer) mustEmbedUnimplementedTokenServiceServer() {}
 
-// UnsafeServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ServiceServer will
+// UnsafeTokenServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TokenServiceServer will
 // result in compilation errors.
-type UnsafeServiceServer interface {
-	mustEmbedUnimplementedServiceServer()
+type UnsafeTokenServiceServer interface {
+	mustEmbedUnimplementedTokenServiceServer()
 }
 
-func RegisterServiceServer(s grpc.ServiceRegistrar, srv ServiceServer) {
-	s.RegisterService(&Service_ServiceDesc, srv)
+func RegisterTokenServiceServer(s grpc.ServiceRegistrar, srv TokenServiceServer) {
+	s.RegisterService(&TokenService_ServiceDesc, srv)
 }
 
-func _Service_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TokenService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateToken)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceServer).Create(ctx, in)
+		return srv.(TokenServiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Service/create",
+		FullMethod: "/TokenService/create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceServer).Create(ctx, req.(*CreateToken))
+		return srv.(TokenServiceServer).Create(ctx, req.(*CreateToken))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Service_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TokenService_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReadToken)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceServer).Read(ctx, in)
+		return srv.(TokenServiceServer).Read(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Service/read",
+		FullMethod: "/TokenService/read",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceServer).Read(ctx, req.(*ReadToken))
+		return srv.(TokenServiceServer).Read(ctx, req.(*ReadToken))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Service_ServiceDesc is the grpc.ServiceDesc for Service service.
+// TokenService_ServiceDesc is the grpc.ServiceDesc for TokenService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Service_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Service",
-	HandlerType: (*ServiceServer)(nil),
+var TokenService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "TokenService",
+	HandlerType: (*TokenServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "create",
-			Handler:    _Service_Create_Handler,
+			Handler:    _TokenService_Create_Handler,
 		},
 		{
 			MethodName: "read",
-			Handler:    _Service_Read_Handler,
+			Handler:    _TokenService_Read_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
