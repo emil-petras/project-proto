@@ -20,8 +20,8 @@ message CreateUser {
 }
 
 message UpdateUser {
-    uint64 balance = 1;
-    google.protobuf.Timestamp updated = 2;
+    string username = 1;
+    uint64 balance = 2;
 }
 
 message User {
