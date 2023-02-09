@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "./idempotency";
+
+service IdempotencyService {
+    rpc check (Request) returns (Response) {}
+}
+
+message Request {
+    string value = 1;
+}
+
+message Response {
+    bool exists = 1;
+}
