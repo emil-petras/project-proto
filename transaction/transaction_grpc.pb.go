@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// TokenServiceClient is the client API for TokenService service.
+// TransactionServiceClient is the client API for TransactionService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type TokenServiceClient interface {
+type TransactionServiceClient interface {
 	Create(ctx context.Context, in *CreateTransaction, opts ...grpc.CallOption) (*Transaction, error)
 }
 
-type tokenServiceClient struct {
+type transactionServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewTokenServiceClient(cc grpc.ClientConnInterface) TokenServiceClient {
-	return &tokenServiceClient{cc}
+func NewTransactionServiceClient(cc grpc.ClientConnInterface) TransactionServiceClient {
+	return &transactionServiceClient{cc}
 }
 
-func (c *tokenServiceClient) Create(ctx context.Context, in *CreateTransaction, opts ...grpc.CallOption) (*Transaction, error) {
+func (c *transactionServiceClient) Create(ctx context.Context, in *CreateTransaction, opts ...grpc.CallOption) (*Transaction, error) {
 	out := new(Transaction)
-	err := c.cc.Invoke(ctx, "/TokenService/create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/TransactionService/create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// TokenServiceServer is the server API for TokenService service.
-// All implementations must embed UnimplementedTokenServiceServer
+// TransactionServiceServer is the server API for TransactionService service.
+// All implementations must embed UnimplementedTransactionServiceServer
 // for forward compatibility
-type TokenServiceServer interface {
+type TransactionServiceServer interface {
 	Create(context.Context, *CreateTransaction) (*Transaction, error)
-	mustEmbedUnimplementedTokenServiceServer()
+	mustEmbedUnimplementedTransactionServiceServer()
 }
 
-// UnimplementedTokenServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedTokenServiceServer struct {
+// UnimplementedTransactionServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedTransactionServiceServer struct {
 }
 
-func (UnimplementedTokenServiceServer) Create(context.Context, *CreateTransaction) (*Transaction, error) {
+func (UnimplementedTransactionServiceServer) Create(context.Context, *CreateTransaction) (*Transaction, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedTokenServiceServer) mustEmbedUnimplementedTokenServiceServer() {}
+func (UnimplementedTransactionServiceServer) mustEmbedUnimplementedTransactionServiceServer() {}
 
-// UnsafeTokenServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to TokenServiceServer will
+// UnsafeTransactionServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TransactionServiceServer will
 // result in compilation errors.
-type UnsafeTokenServiceServer interface {
-	mustEmbedUnimplementedTokenServiceServer()
+type UnsafeTransactionServiceServer interface {
+	mustEmbedUnimplementedTransactionServiceServer()
 }
 
-func RegisterTokenServiceServer(s grpc.ServiceRegistrar, srv TokenServiceServer) {
-	s.RegisterService(&TokenService_ServiceDesc, srv)
+func RegisterTransactionServiceServer(s grpc.ServiceRegistrar, srv TransactionServiceServer) {
+	s.RegisterService(&TransactionService_ServiceDesc, srv)
 }
 
-func _TokenService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TransactionService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateTransaction)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TokenServiceServer).Create(ctx, in)
+		return srv.(TransactionServiceServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/TokenService/create",
+		FullMethod: "/TransactionService/create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TokenServiceServer).Create(ctx, req.(*CreateTransaction))
+		return srv.(TransactionServiceServer).Create(ctx, req.(*CreateTransaction))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// TokenService_ServiceDesc is the grpc.ServiceDesc for TokenService service.
+// TransactionService_ServiceDesc is the grpc.ServiceDesc for TransactionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var TokenService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "TokenService",
-	HandlerType: (*TokenServiceServer)(nil),
+var TransactionService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "TransactionService",
+	HandlerType: (*TransactionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "create",
-			Handler:    _TokenService_Create_Handler,
+			Handler:    _TransactionService_Create_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

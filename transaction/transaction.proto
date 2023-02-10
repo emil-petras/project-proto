@@ -4,7 +4,7 @@ option go_package = "./transaction";
 
 import "google/protobuf/timestamp.proto";
 
-service TokenService {
+service TransactionService {
     rpc create (CreateTransaction) returns (Transaction) {}
 }
 
