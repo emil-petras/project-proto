@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "./transaction";
+
+import "google/protobuf/timestamp.proto";
+
+service TokenService {
+    rpc create (CreateTransaction) returns (Transaction) {}
+}
+
+message CreateTransaction {
+    string amount = 1;
+    uint32 userID = 2;
+}
+
+message Transaction {
+    uint64 id = 1;
+    int32 amount = 2;
+    string username = 3;
+    google.protobuf.Timestamp created = 4;
+}
