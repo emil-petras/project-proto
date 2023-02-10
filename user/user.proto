@@ -20,8 +20,9 @@ message CreateUser {
 }
 
 message UpdateUser {
-    string username = 1;
-    uint64 balance = 2;
+    uint64 userID = 1;
+    string username = 2;
+    uint64 balance = 3;
 }
 
 message User {
