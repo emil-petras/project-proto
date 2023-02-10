@@ -9,7 +9,7 @@ service TokenService {
 }
 
 message CreateTransaction {
-    string amount = 1;
+    int32 amount = 1;
     uint32 userID = 2;
 }
 
